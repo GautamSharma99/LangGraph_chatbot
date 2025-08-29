@@ -69,6 +69,8 @@ def get_stock_price(symbol: str) -> dict:
 
 import requests
 
+
+@tool
 def get_weather(city: str) -> dict:
     """
     Fetch current weather for a given city using Open-Meteo API.
