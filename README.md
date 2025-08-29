@@ -1,6 +1,6 @@
-# LangGraph Chatbot
+# ThreadMind 🧠
 
-A conversational AI chatbot built with LangGraph, LangChain, and Streamlit that provides multiple capabilities including web search, weather updates, stock prices, and basic calculations.
+A sophisticated AI conversation engine that weaves together multiple capabilities through an intelligent thread-based system. Built with LangGraph, LangChain, and Streamlit, ThreadMind seamlessly handles web search, weather updates, stock prices, and calculations while maintaining contextual awareness.
 
 ## Features
 
