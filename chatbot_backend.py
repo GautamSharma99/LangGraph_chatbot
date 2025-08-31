@@ -18,14 +18,9 @@ from ddgs import ddg_search
 load_dotenv()
 api_key = os.getenv('OPENAI_KEY')
 
-# -------------------
-# 1. LLM
-# -------------------
 llm = ChatOpenAI(model='gpt-5-nano',api_key=api_key)
 
-# -------------------
-# 2. Tools
-# -------------------
+
 # Tools
 search_tool = DuckDuckGoSearchRun(region="us-en")
 
@@ -123,20 +118,13 @@ def get_weather(city: str) -> dict:
         return {"error": str(e)}
 
 
-
-
 tools = [search_tool, get_stock_price, calculator, get_weather]
 llm_with_tools = llm.bind_tools(tools)
 
-# -------------------
-# 3. State
-# -------------------
+
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
-# -------------------
-# 4. Nodes
-# -------------------
 def chat_node(state: ChatState):
     """LLM node that may answer or request a tool call."""
     messages = state["messages"]
@@ -145,15 +133,12 @@ def chat_node(state: ChatState):
 
 tool_node = ToolNode(tools)
 
-# -------------------
-# 5. Checkpointer
-# -------------------
+#checkpointer
 conn = sqlite3.connect(database="chatbot.db", check_same_thread=False)
 checkpointer = SqliteSaver(conn=conn)
 
-# -------------------
-# 6. Graph
-# -------------------
+
+#Graph
 graph = StateGraph(ChatState)
 graph.add_node("chat_node", chat_node)
 graph.add_node("tools", tool_node)
@@ -165,9 +150,7 @@ graph.add_edge('tools', 'chat_node')
 
 chatbot = graph.compile(checkpointer=checkpointer)
 
-# -------------------
-# 7. Helper
-# -------------------
+
 def retrieve_all_threads():
     all_threads = set()
     for checkpoint in checkpointer.list(None):
