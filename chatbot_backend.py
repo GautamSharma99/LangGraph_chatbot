@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 import sqlite3
 import requests
 import os
-from ddgs import ddg_search
+
 
 load_dotenv()
 api_key = os.getenv('OPENAI_KEY')
